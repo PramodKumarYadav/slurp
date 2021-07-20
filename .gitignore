@@ -4,4 +4,9 @@
 *.iws
 *.iml
 .idea_modules/
+
+### Eclipse
+.classpath
+.project
+.metadata
 .settings
