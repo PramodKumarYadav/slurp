@@ -44,7 +44,6 @@ public class Options {
     static boolean headlessFlag = parseBoolean(config.getString("headless"));
     static boolean acceptInsecureCertsFlag = parseBoolean(config.getString("acceptInsecureCertificates"));
     static String seleniumLogLevel = config.getString("seleniumLogLevel");
-    private final static String DOWNLOADS_DIR = config.getString("downloadsDir");
 
     public static ChromeOptions getChromeOptions() {
         ChromeOptions chromeOptions = new ChromeOptions();
@@ -56,11 +55,6 @@ public class Options {
         chromeOptions.addArguments("start-maximized");
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
         chromeOptions.addArguments("--enable-javascript");
-
-        Map<String, Object> prefs = new Hashtable<String, Object>();
-        prefs.put("plugins.always_open_pdf_externally", true);
-        prefs.put("download.default_directory", String.format("%s\\%s", System.getProperty("user.dir"), DOWNLOADS_DIR));
-        chromeOptions.setExperimentalOption("prefs", prefs);
 
         // To get error console logs
         LoggingPreferences logPrefs = new LoggingPreferences();
