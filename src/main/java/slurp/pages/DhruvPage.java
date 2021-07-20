@@ -33,7 +33,14 @@ public class DhruvPage extends PageActions {
         webDriverWaitLong.until(ExpectedConditions.urlToBe(HOME_PAGE_URL));
     }
 
-    public void navigateAllComics(){
-        log.info("size is: " + String.valueOf(comics.size()));
+    public void listAllComicURLs(){
+        for (WebElement comic: comics) {
+            log.info(comic.getAttribute("href"));
+        }
+    }
+
+    public Integer getComicsCount(){
+        log.info("Total Dhruv comics: " + String.valueOf(comics.size()));
+        return comics.size();
     }
 }
