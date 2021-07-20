@@ -4,6 +4,7 @@
 *.iws
 *.iml
 .idea_modules/
+target
 
 ### Eclipse
 .classpath
