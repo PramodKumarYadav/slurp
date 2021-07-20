@@ -4,3 +4,4 @@
 *.iws
 *.iml
 .idea_modules/
+.settings
