@@ -8,11 +8,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import slurp.pages.DhruvPage;
 import slurp.webdriver.DriverFactory;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -55,5 +65,15 @@ public class TestDhruv {
     @Test
     void getComicsURLs() {
         dhruvPage.listAllComicURLs();
+    }
+
+    @Test
+    public void getComicName() {
+        dhruvPage.getComicName("https://comicsworld.in/manga/super-commando-dhruv/111-end-game/");
+    }
+
+    @Test
+    public void saveImages() {
+        dhruvPage.saveAllImagesInAComic("https://comicsworld.in/manga/super-commando-dhruv/111-end-game/");
     }
 }
