@@ -16,16 +16,16 @@
 ### To download all comics from a series.
 -   Go to ```main -> resources -> application.conf``` file.
 -   Change the field ```series="nagayan"``` to something of your choice and something whose config is available in the
-    resources directory. Such as say visharpi whose config is available in resources; say ```series="visharpi"```  ![visharpi.conf](./images/chose-a-series.png)
+    resources directory. Such as say ```visharpi``` whose config is available in resources; say ```series="nagayan"```  ![visharpi.conf](./images/chose-a-series.png)
 -   Now go to ```test -> java -> slurp -> TestSeries``` and run test ```getAllComicsFromASeriesAsPDFs```.
--   This will download all comics into the directory ```./comics/visharpi/``` as pdfs and images. ![downloaded images](./images/downloaded-images-and-pdfs.png)
+-   This will download all comics into the directory ```./comics/visharpi/``` as pdfs and images. ![downloaded images](./images/visharpi-downloaded-images-and-pdfs.png)
 
 ### To download a single comic from a series.
 -   Go to ```main -> resources -> application.conf``` file.
--   Change the field ```series="nagayan"``` to something of your choice and something whose config is available in the
-    resources directory. Such as say visharpi whose config is available in resources; say ```series="visharpi"```  ![visharpi.conf](./images/chose-a-series.png)
--   Go to ```main -> resources -> nagayan.conf``` file.
+-   Change the field ```series="visharpi"``` to something of your choice and something whose config is available in the
+    resources directory. Such as say ```nagayan``` whose config is available in resources; say ```series="nagayan"```  ![nagayan.conf](./images/chose-a-series.png)
+-   Now go to this chosen series config file -> ```main -> resources -> nagayan.conf```.
 -   Change the field ```singleComicUrl="whatever url is here..."``` to something of your choice from ```the same series```. 
     Something like this ![](./images/copying-a-comic-url-from-website.png)
 -   Now go to ```test -> java -> slurp -> TestComics``` and run test ```getASingleComicAsPDF```.
--   This will download the comic whose URL you put in that series config into the directory, say ```./comics/visharpi/``` as pdfs and images. ![downloaded images](./images/downloaded-images-and-pdfs.png)
+-   This will download the comic whose URL you put in that series config into the directory, say ```./comics/visharpi/``` as pdfs and images. ![downloaded images](./images/nagayan-downloaded-images-and-pdfs.png)
