@@ -11,8 +11,6 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.plugin>3.8.1</maven.compiler.plugin>
-        <maven.surefire.plugin>2.22.2</maven.surefire.plugin>
         <junit.version>5.6.2</junit.version>
         <commonsio.version>2.8.0</commonsio.version>
         <selenium.version>3.141.59</selenium.version>
@@ -108,12 +106,32 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin}</version>
+                <version>3.8.1</version>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.plugin}</version>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <rerunFailingTestsCount>2</rerunFailingTestsCount>
+                    <!-- this is not supported in junit5 at the time of writing this comment: https://maven.apache.org/surefire/maven-surefire-plugin/featurematrix.html-->
+                    <skipAfterFailureCount>10</skipAfterFailureCount>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.9.1</version>
             </plugin>
         </plugins>
     </build>
+    <!-- `mvn clean test site` to generate the junit html report-->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>3.0.0-M5</version>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
