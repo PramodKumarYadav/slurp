@@ -26,6 +26,9 @@
     resources directory. Such as say ```nagayan``` whose config is available in resources; say ```series="nagayan"```  ![nagayan.conf](./images/chose-a-series.png)
 -   Now go to this chosen series config file -> ```main -> resources -> nagayan.conf```.
 -   Change the field ```singleComicUrl="whatever url is here..."``` to something of your choice from ```the same series```. 
-    Something like this ![](./images/copying-a-comic-url-from-website.png)
+    Something like this (taken from ther series page below): 
+    ```https://comicsworld.in/manga/read-complete-nagayan-series/7-samarkaand-nagayan/```
+    ![](./images/copying-a-comic-url-from-website.png)
 -   Now go to ```test -> java -> slurp -> TestComics``` and run test ```getASingleComicAsPDF```.
--   This will download the comic whose URL you put in that series config into the directory, say ```./comics/visharpi/``` as pdfs and images. ![downloaded images](./images/nagayan-downloaded-images-and-pdfs.png)
+-   This will download the comic whose URL you put in that series config into the directory, say ```./comics/nagayan/``` as pdfs and images. 
+![downloaded images](./images/nagayan-downloaded-images-and-pdfs.png)
