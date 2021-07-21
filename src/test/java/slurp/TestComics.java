@@ -78,15 +78,4 @@ public class TestComics {
     public void getASingleComicAsPDF() {
         comicPage.getASingleComic(SINGLE_COMIC_URL);
     }
-    
-    @Test
-    @Disabled
-    public void testPadding(){
-        int pageNr = 1;
-        for(int i=0; i< 20; i++){
-            String paddedPageNr = StringUtils.leftPad(String.valueOf(pageNr), 3, "0");
-            log.info(paddedPageNr);
-            pageNr++;
-        }
-    }
 }
