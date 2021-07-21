@@ -13,7 +13,13 @@
 - [X] Make this configurable so that if I want to download any super hero comic, I am able to do that (not just for dhruv)
 
 ## How to use: 
+### download this project on your local machine
 
+Say clone this project from github on your c drive using below commands  
+> cd c:/
+> git clone https://github.com/PramodKumarYadav/slurp.git
+
+You would need git, jdk 8 and maven 3.8.1
 ### To download all comics from a series.
 -   Go to ```main -> resources -> application.conf``` file.
 -   Change the field ```series="nagayan"``` to something of your choice and something whose config is available in the
@@ -32,4 +38,4 @@
     ![](./images/copying-a-comic-url-from-website.png)
 -   Now go to ```test -> java -> slurp -> TestComics``` and run test ```getASingleComicAsPDF```.
 -   This will download the comic whose URL you put in that series config into the directory, say ```./comics/nagayan/``` as pdfs and images. 
-![downloaded images](./images/nagayan-downloaded-images-and-pdfs.png)
+    ![downloaded images](./images/nagayan-downloaded-images-and-pdfs.png)
