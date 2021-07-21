@@ -11,7 +11,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import slurp.PageActions;
 
 import javax.imageio.ImageIO;
@@ -20,59 +19,26 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import static slurp.TestConfig.getConfig;
 import static slurp.utils.DirectoryUtils.createDirectory;
 
 @Slf4j
-public class DhruvPage extends PageActions {
+public class ComicPage extends PageActions {
     //Page URL
     private static Config config = getConfig();
-    private static final String HOME_PAGE_URL = config.getString("homePageUrl");
     private final static String COMICS_DIR = config.getString("comicsDir");
+    private final static String SERIES = config.getString("series");
 
-    public DhruvPage(WebDriver driver) {
+    public ComicPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }
 
     // Locators
-    @FindBy(css = "ul[class='main version-chap active'] > li > a")
-    private List<WebElement> comics;
-
     @FindBy(css = "img[id*='image-']")
     private List<WebElement> images;
-
-    public void navigateToHomePageURL() {
-        driver.get(HOME_PAGE_URL);
-        webDriverWaitLong.until(ExpectedConditions.urlToBe(HOME_PAGE_URL));
-    }
-
-    public void listAllComicURLs(){
-        for (WebElement comic: comics) {
-            log.info(comic.getAttribute("href"));
-        }
-    }
-
-    public List<String> getAllComicURLsOnThePage(){
-        List<String> comicURLs = new ArrayList();
-
-        for (WebElement comic: comics) {
-            String comicURL = comic.getAttribute("href");
-            log.info("comicURL: "+ comicURL);
-
-            comicURLs.add(comicURL);
-        }
-
-        return comicURLs;
-    }
-
-    public Integer getComicsCount(){
-        log.info("Total Dhruv comics: " + String.valueOf(comics.size()));
-        return comics.size();
-    }
 
     public String getComicName(String comicURL) {
         String[] urlPaths = comicURL.split("/");
@@ -97,7 +63,7 @@ public class DhruvPage extends PageActions {
             try {
                 URL imageURL = new URL(srcURL);
                 BufferedImage bufferedImage = ImageIO.read(imageURL);
-                ImageIO.write(bufferedImage, "png", new File(String.format("./%s/%s/%s.png", COMICS_DIR, comicName, paddedPageNr)));
+                ImageIO.write(bufferedImage, "png", new File(String.format("./%s/%s/%s/%s.png", COMICS_DIR, SERIES, comicName, paddedPageNr)));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -106,20 +72,20 @@ public class DhruvPage extends PageActions {
         }
     }
 
-    public static void convertImagesToPDF(String imageDirName){
+    public static void convertImagesToPDF(String comicName){
         try{
             // Instantiate Document Object
             Document document=new Document();
 
             // Access image files in the folder
             // String imagesDirectory = "D:/Images/";
-            String imagesDirectory = String.format("./%s/%s", COMICS_DIR, imageDirName);
+            String imagesDirectory = String.format("./%s/%s/%s", COMICS_DIR, SERIES, comicName);
             log.info(imagesDirectory);
             File file = new File(imagesDirectory);
             String[] fileList = file.list();
 
             //Create PdfWriter for Document to hold physical file
-            String pathFinalPDF = String.format("./%s/%s.pdf", COMICS_DIR, imageDirName);
+            String pathFinalPDF = String.format("./%s/%s/%s.pdf", COMICS_DIR, SERIES, comicName);
             PdfWriter.getInstance(document, new FileOutputStream(pathFinalPDF));
             document.open();
 
@@ -141,19 +107,6 @@ public class DhruvPage extends PageActions {
         }
         catch (Exception i1){
             i1.printStackTrace();
-        }
-    }
-
-    public void getAllDhruvComics(){
-        navigateToHomePageURL();
-
-        List<String> comicURLs = getAllComicURLsOnThePage();
-        for (String comicURL: comicURLs) {
-            driver.get(comicURL);
-            webDriverWaitLong.until(ExpectedConditions.urlToBe(comicURL));
-
-            saveAllImagesInAComic(comicURL);
-            convertImagesToPDF(getComicName(comicURL));
         }
     }
 }

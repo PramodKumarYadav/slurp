@@ -1,5 +1,6 @@
 package slurp;
 
+import com.typesafe.config.Config;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterAll;
@@ -11,28 +12,37 @@ import org.junit.jupiter.api.TestInfo;
 
 import org.openqa.selenium.WebDriver;
 
-import slurp.pages.DhruvPage;
+import slurp.pages.ComicPage;
+import slurp.pages.SeriesPage;
 import slurp.webdriver.DriverFactory;
 import java.lang.invoke.MethodHandles;
 import static slurp.PageActions.closeDriver;
-import static slurp.pages.DhruvPage.convertImagesToPDF;
+import static slurp.TestConfig.getConfig;
 
 @Slf4j
-public class TestDhruv {
+public class TestComics {
     private WebDriver driver = DriverFactory.getDriver();
     private static String className = MethodHandles.lookup().lookupClass().getSimpleName();
 
-    private DhruvPage dhruvPage = new DhruvPage(driver);
+    private SeriesPage seriesPage = new SeriesPage(driver);
+    private ComicPage comicPage = new ComicPage(driver);
+
+    private static Config config = getConfig();
+    private final static String SERIES = config.getString("series");
+    private final static String SINGLE_COMIC_URL = config.getString("singleComicUrl");
+    private final static String COMIC_NAME = config.getString("comicName");
 
     @BeforeAll
     static void initializeTestResults() {
-        log.info("Creating pdfs for comics");
+        log.info("Creating pdfs for series: " + SERIES);
+        log.info("Single comic URL: " + SINGLE_COMIC_URL);
+        log.info("Single comic name: " + COMIC_NAME);
     }
 
     @BeforeEach
     void setUp() {
         // Navigate to home page url for dhruv page
-        dhruvPage.navigateToHomePageURL();
+        seriesPage.navigateToSeriesPageURL();
     }
 
     @AfterEach
@@ -47,27 +57,27 @@ public class TestDhruv {
 
     @Test
     void getComicsCount() {
-        dhruvPage.getComicsCount();
+        seriesPage.getComicsCount();
     }
 
     @Test
     void getComicsURLs() {
-        dhruvPage.listAllComicURLs();
+        seriesPage.listAllComicURLs();
     }
 
     @Test
     public void getComicName() {
-        dhruvPage.getComicName("https://comicsworld.in/manga/super-commando-dhruv/111-end-game/");
+        comicPage.getComicName(SINGLE_COMIC_URL);
     }
 
     @Test
     public void saveImages() {
-        dhruvPage.saveAllImagesInAComic("https://comicsworld.in/manga/super-commando-dhruv/111-end-game/");
+        comicPage.saveAllImagesInAComic(SINGLE_COMIC_URL);
     }
 
     @Test
     public void convertImagesToPDFTest(){
-        convertImagesToPDF("111-end-game");
+        comicPage.convertImagesToPDF(COMIC_NAME);
     }
 
     @Test
@@ -81,7 +91,7 @@ public class TestDhruv {
     }
 
     @Test
-    public void getAllDhruvComics() {
-        dhruvPage.getAllDhruvComics();
+    public void getAllComicsFromASeries() {
+        seriesPage.getAllComicsFromASeries();
     }
 }

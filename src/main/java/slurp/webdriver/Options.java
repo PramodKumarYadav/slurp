@@ -40,7 +40,6 @@ import static slurp.TestConfig.getConfig;
 public class Options {
     static Config config = getConfig();
 
-    static String host = config.getString("host");
     static boolean headlessFlag = parseBoolean(config.getString("headless"));
     static boolean acceptInsecureCertsFlag = parseBoolean(config.getString("acceptInsecureCertificates"));
     static String seleniumLogLevel = config.getString("seleniumLogLevel");
