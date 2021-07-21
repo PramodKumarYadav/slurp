@@ -47,6 +47,13 @@ public class ComicPage extends PageActions {
         return comicName;
     }
 
+    public void getASingleComic(String comicURL){
+        saveAllImagesInAComic(comicURL);
+
+        String comicName = getComicName(comicURL);
+        convertImagesToPDF(comicName);
+    }
+
     public void saveAllImagesInAComic(String comicURL){
         driver.get(comicURL);
 

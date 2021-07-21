@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
@@ -30,13 +31,11 @@ public class TestComics {
     private static Config config = getConfig();
     private final static String SERIES = config.getString("series");
     private final static String SINGLE_COMIC_URL = config.getString("singleComicUrl");
-    private final static String COMIC_NAME = config.getString("comicName");
 
     @BeforeAll
     static void initializeTestResults() {
         log.info("Creating pdfs for series: " + SERIES);
         log.info("Single comic URL: " + SINGLE_COMIC_URL);
-        log.info("Single comic name: " + COMIC_NAME);
     }
 
     @BeforeEach
@@ -66,21 +65,22 @@ public class TestComics {
     }
 
     @Test
-    public void getComicName() {
+    public void getAllComicsFromASeriesAsPDFs() {
+        seriesPage.getAllComicsFromASeries();
+    }
+
+    @Test
+    public void getComicNameFromURL() {
         comicPage.getComicName(SINGLE_COMIC_URL);
     }
 
     @Test
-    public void saveImages() {
-        comicPage.saveAllImagesInAComic(SINGLE_COMIC_URL);
+    public void getASingleComicAsPDF() {
+        comicPage.getASingleComic(SINGLE_COMIC_URL);
     }
-
+    
     @Test
-    public void convertImagesToPDFTest(){
-        comicPage.convertImagesToPDF(COMIC_NAME);
-    }
-
-    @Test
+    @Disabled
     public void testPadding(){
         int pageNr = 1;
         for(int i=0; i< 20; i++){
@@ -88,10 +88,5 @@ public class TestComics {
             log.info(paddedPageNr);
             pageNr++;
         }
-    }
-
-    @Test
-    public void getAllComicsFromASeries() {
-        seriesPage.getAllComicsFromASeries();
     }
 }
