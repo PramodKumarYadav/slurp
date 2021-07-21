@@ -9,31 +9,31 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static slurp.TestConfig.getConfig;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class DirectoryUtils {
     private static Config config = getConfig();
-    private final Integer WAIT_IN_SECONDS = config.getInt("webDriverWaitInSeconds");
-    private final Integer WAIT_IN_SECONDS_LONG = config.getInt("webDriverWaitInSecondsLong");
-    private final static String PATH_RESULTS_DIR = config.getString("resultsDir");
+    private final static String COMICS_DIR = config.getString("comicsDir");
 
     public static void createDirectory(String dirName) {
         try {
-            Path path = Paths.get(String.format("./%s/%s", PATH_RESULTS_DIR, dirName));
+            Path path = Paths.get(String.format("./%s/%s", COMICS_DIR, dirName));
             Files.createDirectories(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void initializeResultsDir(String className) {
+    public static void initializeComicsDir(String className) {
         try {
-            Path path = Paths.get(String.format("./%s/%s", PATH_RESULTS_DIR, className));
+            Path path = Paths.get(String.format("./%s/%s", COMICS_DIR, className));
             Files.createDirectories(path);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        File dir = new File(String.format("./%s/%s", PATH_RESULTS_DIR, className));
+        File dir = new File(String.format("./%s/%s", COMICS_DIR, className));
         File[] listFiles = dir.listFiles();
         for (File file : listFiles) {
             System.out.println("Deleting " + file.getName());

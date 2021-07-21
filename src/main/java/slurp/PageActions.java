@@ -18,12 +18,6 @@ import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -40,7 +34,6 @@ public class PageActions {
     private static Config config = getConfig();
     private final Integer WAIT_IN_SECONDS = config.getInt("webDriverWaitInSeconds");
     private final Integer WAIT_IN_SECONDS_LONG = config.getInt("webDriverWaitInSecondsLong");
-    private final static String PATH_RESULTS_DIR = config.getString("resultsDir");
 
     public PageActions(WebDriver driver) {
         this.driver = driver;
@@ -323,22 +316,6 @@ public class PageActions {
         Object debug = executor.executeScript("var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) " +
                 "{ items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;", webElement);
         log.info(debug.toString());
-    }
-
-    public static void initializeResultsDir(String className) {
-        try {
-            Path path = Paths.get(String.format("./%s/%s", PATH_RESULTS_DIR, className));
-            Files.createDirectories(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        File dir = new File(String.format("./%s/%s", PATH_RESULTS_DIR, className));
-        File[] listFiles = dir.listFiles();
-        for (File file : listFiles) {
-            System.out.println("Deleting " + file.getName());
-            file.delete();
-        }
     }
 
     public void mouseHover(WebElement element) {
