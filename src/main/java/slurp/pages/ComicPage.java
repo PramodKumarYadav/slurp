@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import slurp.PageActions;
 
 import javax.imageio.ImageIO;
@@ -40,6 +41,11 @@ public class ComicPage extends PageActions {
     @FindBy(css = "img[id*='image-']")
     private List<WebElement> images;
 
+    public void navigateToComicPageURL(String comicURL) {
+        driver.get(comicURL);
+        webDriverWaitLong.until(ExpectedConditions.urlToBe(comicURL));
+    }
+
     public String getComicName(String comicURL) {
         String[] urlPaths = comicURL.split("/");
         String comicName = String.valueOf(urlPaths[urlPaths.length - 1]);
@@ -55,7 +61,7 @@ public class ComicPage extends PageActions {
     }
 
     public void saveAllImagesInAComic(String comicURL){
-        driver.get(comicURL);
+        navigateToComicPageURL(comicURL);
 
         String comicName = getComicName(comicURL);
         createDirectory(comicName);

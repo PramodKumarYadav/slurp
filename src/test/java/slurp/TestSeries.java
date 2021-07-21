@@ -8,33 +8,33 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
-
 import org.openqa.selenium.WebDriver;
-
-import slurp.pages.ComicPage;
+import slurp.pages.SeriesPage;
 import slurp.webdriver.DriverFactory;
+
 import java.lang.invoke.MethodHandles;
+
 import static slurp.PageActions.closeDriver;
 import static slurp.TestConfig.getConfig;
 
 @Slf4j
-public class TestComics {
+public class TestSeries {
     private WebDriver driver = DriverFactory.getDriver();
     private static String className = MethodHandles.lookup().lookupClass().getSimpleName();
 
-    private ComicPage comicPage = new ComicPage(driver);
+    private SeriesPage seriesPage = new SeriesPage(driver);
 
     private static Config config = getConfig();
-    private final static String SINGLE_COMIC_URL = config.getString("singleComicUrl");
+    private final static String SERIES = config.getString("series");
 
     @BeforeAll
     static void initializeTestResults() {
-        log.info("Testing comic: " + SINGLE_COMIC_URL);
+        log.info("Testing series: " + SERIES);
     }
 
     @BeforeEach
     void setUp() {
-        log.info("Each test has specific steps. No common steps here.");
+        seriesPage.navigateToSeriesPageURL();
     }
 
     @AfterEach
@@ -48,12 +48,17 @@ public class TestComics {
     }
 
     @Test
-    public void getComicNameFromURL() {
-        comicPage.getComicName(SINGLE_COMIC_URL);
+    void getComicsCountInSeries() {
+        seriesPage.getComicsCount();
     }
 
     @Test
-    public void getASingleComicAsPDF() {
-        comicPage.getASingleComic(SINGLE_COMIC_URL);
+    void getComicsURLsInSeries() {
+        seriesPage.listAllComicURLs();
+    }
+
+    @Test
+    public void getAllComicsFromASeriesAsPDFs() {
+        seriesPage.getAllComicsFromASeries();
     }
 }
