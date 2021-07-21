@@ -5,6 +5,7 @@
 *.iml
 .idea_modules/
 target
+.factorypath
 
 ### Eclipse
 .classpath
@@ -13,4 +14,4 @@ target
 .settings
 
 ### project files
-results
+comics
