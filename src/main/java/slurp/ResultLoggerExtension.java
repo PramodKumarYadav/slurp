@@ -25,13 +25,13 @@ import static slurp.TestConfig.getConfig;
 @Slf4j
 public class ResultLoggerExtension implements TestWatcher, AfterAllCallback, BeforeAllCallback {
     private List<TestResultStatus> testResultsStatus = new ArrayList<>();
-    private static ArrayList<String> classNames = new ArrayList<String>();
+    private static ArrayList<String> classNames = new ArrayList<>();
 
     private static Config config = getConfig();
-    private final static String PATH_RESULTS_DIR = config.getString("resultsDir");
+    private static final String COMICS_DIR = config.getString("comicsDir");
 
     private enum TestResultStatus {
-        SUCCESSFUL, ABORTED, FAILED, DISABLED;
+        SUCCESSFUL, ABORTED, FAILED, DISABLED
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ResultLoggerExtension implements TestWatcher, AfterAllCallback, Bef
     }
 
     @Override
-    public void afterAll(ExtensionContext context) throws Exception {
+    public void afterAll(ExtensionContext context) {
         Map<TestResultStatus, Long> summary = testResultsStatus.stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
@@ -71,7 +71,7 @@ public class ResultLoggerExtension implements TestWatcher, AfterAllCallback, Bef
     }
 
     @Override
-    public void beforeAll(ExtensionContext context) throws Exception {
+    public void beforeAll(ExtensionContext context) {
         log.info("In test class: {}", context.getDisplayName());
         setClassName(context.getDisplayName());
     }
@@ -86,7 +86,8 @@ public class ResultLoggerExtension implements TestWatcher, AfterAllCallback, Bef
 
     private void deleteFiles(String fileName) {
         try {
-            Path path = Paths.get(String.format("./%s/%s/%s.png", PATH_RESULTS_DIR, getClassName(), fileName));
+            String filePath = String.format("./%s/%s/%s.png", COMICS_DIR, getClassName(), fileName);
+            Path path = Paths.get(filePath);
             Files.delete(path);
         } catch (IOException e) {
             log.info(e.getMessage());
