@@ -23,7 +23,7 @@ jobs:
         distribution: 'adopt'
     - name: Install Google Chrome # Using shell script to install Google Chrome
         run: |
-          chmod +x ./InstallChrome.sh
+          chmod +x ./install-chrome.sh
            ./install-chrome.sh
     - name: Build with Maven
       run: mvn test
