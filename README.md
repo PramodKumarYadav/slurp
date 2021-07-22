@@ -1,5 +1,5 @@
 # Slurp
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/pramodkumaryadav/slurp/CI%20for%20slurp)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/pramodkumaryadav/slurp/CI%20for%20slurp)](https://github.com/PramodKumarYadav/slurp/actions)
 ![GitHub contributors](https://img.shields.io/github/contributors/pramodkumaryadav/slurp)
 ![GitHub last commit](https://img.shields.io/github/last-commit/pramodkumaryadav/slurp)
 
