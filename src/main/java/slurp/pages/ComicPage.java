@@ -108,7 +108,7 @@ public class ComicPage extends PageActions {
 
                 //Get the input image to Convert to PDF
                 Image image=Image.getInstance(pathJPG);
-                image.scaleToFit(PageSize.A4);
+                image.scaleToFit(PageSize.LETTER);
 
                 //Add image to Document
                 document.add(image);
